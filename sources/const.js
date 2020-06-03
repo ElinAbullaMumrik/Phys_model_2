@@ -15,9 +15,9 @@ function getE(x, y) {
         let dy = local_arr[1] - y;
         let dr = Math.sqrt(dx * dx + dy * dy);
         let q = local_arr[2];
-        let sin = dy / dr;
-        let cos = dx / dr;
-        E = k * q / dr;
+        let sin = Math.abs(dy / dr);
+        let cos = Math.abs(dx / dr);
+        E = k * q / dr/dr;
         Ex += E * cos;
         Ey += E * sin;
     }
@@ -26,7 +26,23 @@ function getE(x, y) {
 }
 
 function getPhi(x, y) {
-
+    let phi = 0;
+    let phix = 0;
+    let phiy = 0;
+    for (let i = 0; i < charges; i++) {
+        let local_arr = arr_charges[i];
+        let dx = local_arr[0] - x;
+        let dy = local_arr[1] - y;
+        let dr = Math.sqrt(dx * dx + dy * dy);
+        let q = local_arr[2];
+        let sin = Math.abs(dy / dr);
+        let cos = Math.abs(dx / dr);
+        phi = k * q / dr;
+        phix += phi * cos;
+        phiy += phi * sin;
+    }
+    phi = Math.sqrt(phix * phix + phiy * phiy);
+    return phi;
 }
 
 function drawCharge() {
@@ -34,6 +50,7 @@ function drawCharge() {
     var q = document.getElementById("Q").value;
     var x = document.getElementById("X").value;
     var y = document.getElementById("Y").value;
+    array = [x, y, q];
     x = x * 20 + 20;
     y = (20 - y) * 20 + 20;
     let ctx = document.getElementById('graph').getContext("2d");
@@ -47,7 +64,6 @@ function drawCharge() {
     ctx.fillStyle = "black";
     ctx.font = "18px Times New Roman";
     ctx.fillText(q, x - 5, y + 5);
-    array = [x / 100, y / 100, q];
     arr_charges.push(array);
     charges++;
 }
@@ -148,8 +164,7 @@ function interract() {
     x = (x - 20) / 20;
     y = (20 - (y - 20) / 20) ;
     let E = getE(x, y);
-    let phi = x + y;
-
+    let phi = getPhi(x, y);
     small_arr = [x, y, E, phi];
     arr.push(small_arr);
     drawRow(x, y, E, phi);
