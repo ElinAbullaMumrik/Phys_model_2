@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!-- saved from url=(0083)https://studyphysics.ifmo.ru/pluginfile.php/17494/mod_resource/content/5/index.html -->
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="./sources/style.css">
+    <title>"Электростатическое поле"</title>
+
+</head>
+
+<body>
+
+    <main>
+        <table width="640px" border="0" align="center">
+            <tr>
+                <td>
+                    <h1>Изучение электростатического поля методом моделирования</h1>
+                </td>
+            </tr>
+
+        </table>
+        <h1></h1>
+        <table width="600px%" border="0" align="center">
+            <tr>
+                <td><span class="image">
+                        <canvas height="440" width="640" id="graph" name="graph" onclick="interract()" class="graph"
+                            style="background-color:#eee; border:1px solid #ccc;">
+                        </canvas>
+                        <script>window.onload = function (ev) {
+                                draw('graph', 1);
+                            }</script>
+                    </span></td>
+            </tr>
+            <tr><td>Введите зарад Q, его координаты X и Y</td></tr>
+            <tr>
+                <td>
+                    <input type="number" size="10" id="Q">
+                    <input type="number" size="10" id="X" min="0" max="30" >
+                    <input type="number" size="10" id="Y" min="0" max="20">
+                    <input type="button" value="Отправить" onclick="drawCharge()">
+                </td>
+            </tr>
+        </table>
+
+        <div id="div1"></div>
+    </main>
+
+    <script src="./sources/const.js"></script>
+    <noscript>
+        <div>
+            Извините, для работы приложения нужен включённый Javascript
+        </div>
+    </noscript>
+    <h1></h1>
+    <table width="650px" border="1" align="center" >
+        <tr>
+            <td>X, м</td>
+            <td>Y, м</td>
+            <td>E, В/м</td>
+            <td>phi, В</td>
+
+        </tr>
+    </table>
+    <table width="650px" border="1" id="tb1" align="center" >
+
+    </table>
+
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+
+body {background-image: url(5.jpg)}
+
+table {
+    font-family: Sans-Serif;
+    font-size: 14px;
+    background: snow;
+    opacity: 0.9;
+    text-align: left;
+    border-radius: 10px;
+    border-color: #000060;
+    text-align: center;
+}
