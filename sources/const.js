@@ -17,11 +17,12 @@ function getE(x, y) {
         let q = local_arr[2];
         let sin = Math.abs(dy / dr);
         let cos = Math.abs(dx / dr);
-        E = k * q / dr/dr;
+        E = k * q / dr / dr;
         Ex += E * cos;
         Ey += E * sin;
     }
     E = Math.sqrt(Ex * Ex + Ey * Ey);
+    E = E.toPrecision(2);
     return E;
 }
 
@@ -42,7 +43,9 @@ function getPhi(x, y) {
         phiy += phi * sin;
     }
     phi = Math.sqrt(phix * phix + phiy * phiy);
+    phi = phi.toPrecision(2);
     return phi;
+
 }
 
 function drawCharge() {
@@ -51,21 +54,23 @@ function drawCharge() {
     var x = document.getElementById("X").value;
     var y = document.getElementById("Y").value;
     array = [x, y, q];
-    x = x * 20 + 20;
-    y = (20 - y) * 20 + 20;
-    let ctx = document.getElementById('graph').getContext("2d");
-    ctx.beginPath();
-    ctx.arc(x, y, 12, 0, Math.PI * 2);
-    ctx.closePath();
-    ctx.strokeStyle = "red";
-    ctx.fillStyle = "red";
-    ctx.fill();
-    ctx.stroke();
-    ctx.fillStyle = "black";
-    ctx.font = "18px Times New Roman";
-    ctx.fillText(q, x - 5, y + 5);
-    arr_charges.push(array);
-    charges++;
+    if (x >= 0 && x <= 30 && y >= 0 && y <= 30) {
+        x = x * 20 + 20;
+        y = (20 - y) * 20 + 20;
+        let ctx = document.getElementById('graph').getContext("2d");
+        ctx.beginPath();
+        ctx.arc(x, y, 12, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.strokeStyle = "red";
+        ctx.fillStyle = "red";
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = "black";
+        ctx.font = "18px Times New Roman";
+        ctx.fillText(q, x - 5, y + 5);
+        arr_charges.push(array);
+        charges++;
+    }
 }
 
 function draw(canv, r) {
@@ -162,7 +167,7 @@ function interract() {
     let y = pos.y;
     drawPoint('graph', x, y);
     x = (x - 20) / 20;
-    y = (20 - (y - 20) / 20) ;
+    y = (20 - (y - 20) / 20);
     let E = getE(x, y);
     let phi = getPhi(x, y);
     small_arr = [x, y, E, phi];
@@ -170,6 +175,7 @@ function interract() {
     drawRow(x, y, E, phi);
 }
 function drawRow(x, y, E, phi) {
+    var a = y.toFixed(2);
     // creates a <table> element
     var tbl = document.getElementById('tb1')
 
@@ -181,7 +187,7 @@ function drawRow(x, y, E, phi) {
     cell.appendChild(cellText);
     row.appendChild(cell);
     var cell = document.createElement("td");
-    var cellText = document.createTextNode(y);
+    var cellText = document.createTextNode(a);
     cell.appendChild(cellText);
     row.appendChild(cell);
     var cell = document.createElement("td");
@@ -192,5 +198,5 @@ function drawRow(x, y, E, phi) {
     var cellText = document.createTextNode(phi);
     cell.appendChild(cellText);
     row.appendChild(cell);
-    tbl.appendChild(row); // add the row to the end of the table body
+    tbl.prepend(row); // add the row to the end of the table body
 }
